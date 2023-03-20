@@ -1,1 +1,13 @@
+<<<<<<< HEAD
 ;[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+=======
+Anna
+Irena
+Misha
+Vika
+Andrei
+Tanya
+Oleg
+Adam
+Larisa
+>>>>>>> d9152445d3f6f56efd71d378a5d2f985d00d470f
