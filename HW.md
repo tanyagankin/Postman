@@ -3,8 +3,9 @@
 
 ## Postman HW 1:
 ______
-+Создать запросы в Postman:
++ Создать запросы в Postman:
 Protocol: http IP: 162.55.220.72 Port: 5005
+________
 ✅EP_1\
 Method: GET\
 EndPoint: /get_method\
@@ -119,12 +120,14 @@ salary: int\
 
 ## Postman HW 2:
 ___________
-+ ✅EP_1\first 
+ 
+✅EP_1\first    
 http://162.55.220.72:5005/first
 1. Отправить запрос.
 2. Статус код 200
 3. Проверить, что в body приходит правильный string.
-
+______________
+   
 ✅EP_2\user_info_3  
 http://162.55.220.72:5005/user_info_3
 1. Отправить запрос.
@@ -139,6 +142,7 @@ http://162.55.220.72:5005/user_info_3
 10. Проверить, что salary в ответе равно salary s request (salary забрать из request.)
 11. Вывести в консоль параметр family из response.
 12. Проверить что u_salary_1_5_year в ответе равно salary*4 (salary забрать из request)
+_________________________
 
 ✅EP_3\object_info_3
 http://162.55.220.72:5005/object_info_3
@@ -154,6 +158,7 @@ http://162.55.220.72:5005/object_info_3
 10. Проверить, что у параметра dog есть параметры age.
 11. Проверить, что параметр name имеет значение Luky.
 12. Проверить, что параметр age имеет значение 4.
+__________________________
 
 ✅EP_4\object_info_4
 http://162.55.220.72:5005/object_info_4
@@ -178,6 +183,7 @@ http://162.55.220.72:5005/object_info_4
 19. Передать в окружение переменную age
 20. Передать в окружение переменную salary
 21. Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.
+______________________________
 
 ✅EP_5\user_info_2
 http://162.55.220.72:5005/user_info_2
@@ -205,4 +211,182 @@ http://162.55.220.72:5005/user_info_2
 22. ***Написать цикл который выведет в консоль по порядку элементы списка из параметра person.  
  </details>
  
+ 
+ <details>
+<summary>Click on homework condition 3</summary>
+
+## Postman HW 3:
+________________
+✅EP_1\LogIn
+   
+необходимо залогиниться
+POST
+http://162.55.220.72:5005/login
+login : str (кроме /)
+password : str
+
+Приходящий токен необходимо передать во все остальные запросы.
+
+(дальше все запросы требуют наличие токена.)
+
+___________________
+✅EP_2\user_info
+http://162.55.220.72:5005/user_info
+req. (RAW JSON)
+POST
+age: int
+salary: int
+name: str
+auth_token
+
+
+resp.
+{'start_qa_salary':salary,
+ 'qa_salary_after_6_months': salary * 2,
+ 'qa_salary_after_12_months': salary * 2.9,
+ 'person': {'u_name':[user_name, salary, age],
+                                'u_age':age,
+                                'u_salary_1.5_year': salary * 4}
+                                }
+
+Тесты:
+1) Статус код 200
+2) Проверка структуры json в ответе.
+3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
+4) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
+___________________________
+
+✅EP_3\new_data
+http://162.55.220.72:5005/new_data
+req.
+POST
+age: int
+salary: int
+name: str
+auth_token
+
+Resp.
+{'name':name,
+  'age': int(age),
+  'salary': [salary, str(salary*2), str(salary*3)]}
+
+Тесты:
+1) Статус код 200
+2) Проверка структуры json в ответе.
+3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
+4) проверить, что 2-й элемент массива salary больше 1-го и 0-го
+_________________________
+
+✅EP_4\test_pet_info
+http://162.55.220.72:5005/test_pet_info
+req.
+POST
+age: int
+weight: int
+name: str
+auth_token
+
+
+Resp.
+{'name': name,
+ 'age': age,
+ 'daily_food':weight * 0.012,
+ 'daily_sleep': weight * 2.5}
+
+
+Тесты:
+1) Статус код 200
+2) Проверка структуры json в ответе.
+3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.
+
+_________________________________
+
+✅EP_5\get_test_user
+http://162.55.220.72:5005/get_test_user
+req.
+POST
+age: int
+salary: int
+name: str
+auth_token
+
+Resp.
+{'name': name,
+ 'age':age,
+ 'salary': salary,
+ 'family':{'children':[['Alex', 24],['Kate', 12]],
+ 'u_salary_1.5_year': salary * 4}
+  }
+
+Тесты:
+1) Статус код 200
+2) Проверка структуры json в ответе.
+3) Проверить что занчение поля name = значению переменной name из окружения
+4) Проверить что занчение поля age в ответе соответсвует отправленному в запросе значению поля age
+
+______________________________________
+
+✅EP_6\currency
+http://162.55.220.72:5005/currency
+req.
+POST
+auth_token
+
+Resp. Передаётся список массив объектов.
+[
+{"Cur_Abbreviation": str,
+ "Cur_ID": int,
+ "Cur_Name": str
+}
+…
+{"Cur_Abbreviation": str,
+ "Cur_ID": int,
+ "Cur_Name": str
+}
+]
+
+Тесты:
+1) Можете взять любой объект из присланного списка, используйте js random.
+В объекте возьмите Cur_ID и передать через окружение в следующий запрос.
+
+___________________________________
+
+✅EP_7\curr_byn
+http://162.55.220.72:5005/curr_byn
+req.
+POST
+auth_token
+curr_code: int
+
+Resp.
+{
+    "Cur_Abbreviation": str
+    "Cur_ID": int,
+    "Cur_Name": str,
+    "Cur_OfficialRate": float,
+    "Cur_Scale": int,
+    "Date": str
+}
+
+Тесты:
+1) Статус код 200
+2) Проверка структуры json в ответе.
+***
+1) получить список валют
+2) итерировать список валют
+3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты
+4) если возвращается 500 код, переходим к следующей итреации
+5) если получаем 200 код, проверяем response json на наличие поля "Cur_OfficialRate"
+6) если поле есть, пишем в консоль инфу про фалюту в виде response
+{
+    "Cur_Abbreviation": str
+    "Cur_ID": int,
+    "Cur_Name": str,
+    "Cur_OfficialRate": float,
+    "Cur_Scale": int,
+    "Date": str
+}
+7) переходим к следующей итерации
+   
+</details>   
    
